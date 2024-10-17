@@ -1,5 +1,4 @@
 require("dotenv").config(); // To enable .env called
-const bodyParser = require("body-parser");
 const express = require("express"); // Import express
 const app = express();
 const port = process.env.PORT || 3000;

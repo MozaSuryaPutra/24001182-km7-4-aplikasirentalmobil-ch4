@@ -27,7 +27,6 @@ exports.updateCars = async (req, res, next) => {
   const Cars = CarsRepository.getCarsById(id);
   const requestBody = {
     ...req.body,
-    capacity: parseInt(req.body.capacity, 10) || Cars.capacity,
     rentPerDay: parseInt(req.body.rentPerDay, 10) || Cars.rentPerDay,
     year: parseInt(req.body.year, 10) || Cars.year,
     available:
