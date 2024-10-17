@@ -15,9 +15,7 @@ exports.getCars = async (capacity) => {
     include: {
       carModels: {
         include: {
-          type: true,
-          manufactures: true,
-          transmissions: true,
+          model_type: true,
         },
       },
     },
@@ -35,9 +33,7 @@ exports.getCarsById = async (id) => {
     include: {
       carModels: {
         include: {
-          type: true,
-          manufactures: true,
-          transmissions: true,
+          model_type: true,
         },
       },
     },
@@ -54,11 +50,10 @@ exports.createCars = async (data) => {
       id: uuidv4(), // Menghasilkan id unik
       ...data, // Spread semua data dari request body ke sini
       rentPerDay: parseInt(data.rentPerDay), // Parsing rentPerDay jadi integer
-      capacity: parseInt(data.capacity), // Parsing capacity jadi integer
       availableAt: new Date(data.availableAt), // Parsing availableAt jadi Date
       available: data.available === "true", // Parsing available jadi boolean
       year: parseInt(data.year), // Parsing year jadi integer
-      carmodels_id: parseInt(data.carmodels_id), // Parsing carmodels_id jadi integer
+      carsmodels_id: parseInt(data.carmodels_id), // Parsing carmodels_id jadi integer
     },
   });
 
@@ -75,9 +70,7 @@ exports.updateCars = async (id, data) => {
     include: {
       carModels: {
         include: {
-          type: true,
-          manufactures: true,
-          transmissions: true,
+          model_type: true,
         },
       },
     },
