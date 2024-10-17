@@ -12,7 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^5.20.0",
+    "@prisma/client": "^5.21.0",
     "big-int": "^0.0.6",
     "body-parser": "^1.20.3",
     "dotenv": "^16.4.5",
@@ -31,7 +31,7 @@
     "@types/express-fileupload": "^1.5.1",
     "@types/node": "^22.7.5",
     "nodemon": "^3.1.7",
-    "prisma": "^5.20.0",
+    "prisma": "^5.21.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   }
