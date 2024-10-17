@@ -53,7 +53,7 @@ exports.validateCreateCars = (req, res, next) => {
       .regex(/^[A-Z]{3}-\d{4}$/, {
         message: "Plate must be in the format 'ABC-1234'",
       }),
-    carmodels_id: z
+    carsmodels_id: z
       .string()
       .trim()
       .transform((val) => parseInt(val, 10))
@@ -67,14 +67,7 @@ exports.validateCreateCars = (req, res, next) => {
       .refine((val) => !isNaN(val) && val > 0, {
         message: "Rent per day must be a positive integer",
       }),
-    capacity: z
-      .string()
-      .trim()
-      .transform((val) => parseInt(val, 10))
-      .refine((val) => !isNaN(val) && val > 0, {
-        message: "Capacity must be a positive integer",
-      }),
-    description: z.string().trim(),
+
     availableAt: z.string().refine(
       (date) => {
         const datePattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -147,7 +140,7 @@ exports.validateUpdateCars = (req, res, next) => {
       })
       .optional(),
 
-    carmodels_id: z
+    carsmodels_id: z
       .string()
       .trim()
       .transform((val) => parseInt(val, 10))
@@ -163,15 +156,6 @@ exports.validateUpdateCars = (req, res, next) => {
         message: "Rent per day must be a positive integer",
       })
       .optional(),
-    capacity: z
-      .string()
-      .trim()
-      .transform((val) => parseInt(val, 10))
-      .refine((val) => !isNaN(val) && val > 0, {
-        message: "Capacity must be a positive integer",
-      })
-      .optional(),
-    description: z.string().trim().optional(),
     availableAt: z
       .string()
       .refine(
