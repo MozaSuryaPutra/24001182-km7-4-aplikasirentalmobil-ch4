@@ -34,8 +34,8 @@ model carsModels {
   transmission String    @db.VarChar
   description  String
   type_id      BigInt
-  specs        Json      @db.Json
-  options      Json      @db.Json
+  specs        String    @db.VarChar
+  options      String    @db.VarChar
   cars         cars[]
   car_types    car_types @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
