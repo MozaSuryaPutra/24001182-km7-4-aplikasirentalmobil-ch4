@@ -1,5 +1,4 @@
 const fs = require("fs");
-const cars = require("../../data/cars.json");
 const { v4: uuidv4 } = require("uuid");
 const { PrismaClient } = require("@prisma/client");
 const JSONBigInt = require("json-bigint");
