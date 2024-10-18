@@ -1,96 +1,72 @@
-const fs = require("fs");
-const { v4: uuidv4 } = require("uuid");
 const { PrismaClient } = require("@prisma/client");
 const JSONBigInt = require("json-bigint");
 
 const prisma = new PrismaClient();
-// exports.getCars = async (capacity) => {
-//   // Convert capacity to number if it is a string
-//   const numericCapacity = Number(capacity);
 
-//   const searchedCars = await prisma.cars.findMany({
-//     where: {
-//       OR: [{ capacity: { gte: numericCapacity } }],
-//     },
-//     include: {
-//       carModels: {
-//         include: {
-//           type: true,
-//           manufactures: true,
-//           transmissions: true,
-//         },
-//       },
-//     },
-//   });
+exports.getCarType = async (capacity) => {
+  // Convert capacity to number if it is a string
+  const numericCapacity = Number(capacity);
 
-//   const serializedCars = JSONBigInt.stringify(searchedCars);
-//   return JSONBigInt.parse(serializedCars);
-// };
+  // It will generate the query
+  let query = {};
+  if (capacity) {
+      query.push({
+          nick_name: { contains: capacity, mode: "insensitive" },
+      });
+  }
 
-// exports.getCarsById = async (id) => {
-//   const carsFind = await prisma.cars.findFirst({
-//     where: {
-//       id: id,
-//     },
-//     include: {
-//       carModels: {
-//         include: {
-//           type: true,
-//           manufactures: true,
-//           transmissions: true,
-//         },
-//       },
-//     },
-//   });
+  // Find by query
+  const searchedCarType = await prisma.car_types.findMany({
+    where: query,
+  });
 
-//   // Convert BigInt fields to string for safe serialization
-//   const serializedCars = JSONBigInt.stringify(carsFind);
-//   return JSONBigInt.parse(serializedCars);
-// };
+  // Convert BigInt fields to string for safe serialization
+  const serializedCarType = JSONBigInt.stringify(searchedCarType);
+  return JSONBigInt.parse(serializedCarType);
+};
 
-exports.createCarType = async (data) => {
-  const { body_style, capacity, fuel_type } = data;
-
-  const newCarsType = await prisma.car_types.create({
-    data: {
-      body_style,
-      capacity: parseInt(capacity, 10), // Convert capacity to an integer
-      fuel_type,
+exports.getCarTypeById = async (id) => {
+  const carType = await prisma.car_types.findFirst({
+    where: {
+      id: id,
     },
   });
 
   // Convert BigInt fields to string for safe serialization
-  const serializedCars = JSONBigInt.stringify(newCarsType);
-  return JSONBigInt.parse(serializedCars);
+  const serializedCarType = JSONBigInt.stringify(carType);
+  return JSONBigInt.parse(serializedCarType);
 };
 
-// exports.updateCars = async (id, data) => {
-//   const updatedCars = await prisma.cars.update({
-//     where: {
-//       id: id,
-//     },
-//     include: {
-//       carModels: {
-//         include: {
-//           type: true,
-//           manufactures: true,
-//           transmissions: true,
-//         },
-//       },
-//     },
-//     data,
-//   });
+exports.createCarType = async (data) => {
+  const newCarType = await prisma.car_types.create({
+    data: {
+      id, // Menghasilkan id unik
+      ...data, // Spread semua data dari request body ke sini
+      // body_style: data.body_style, 
+      // capacity: parseInt(data.capacity),
+      // fuel_type: data.fuel_type,
 
-//   // Convert BigInt fields to string for safe serialization
-//   const serializedCars = JSONBigInt.stringify(updatedCars);
-//   return JSONBigInt.parse(serializedCars);
-// };
+  // Convert BigInt fields to string for safe serialization
+  const serializedCarType = JSONBigInt.stringify(newCarType);
+  return JSONBigInt.parse(serializedCarType);
+};
 
-// exports.deleteCarsById = async (id) => {
-//   const deletedCar = await prisma.cars.delete({
-//     where: { id: id },
-//   });
+exports.updateCarType = async (id, data) => {
+  const updatedCarType = await prisma.car_types.update({
+    where: { id },
+    data,
+  });
 
-//   const serializedCar = JSONBigInt.stringify(deletedCar);
-//   return JSONBigInt.parse(serializedCar);
-// };
+  // Convert BigInt fields to string for safe serialization
+  const serializedCarType = JSONBigInt.stringify(updatedCarType);
+  return JSONBigInt.parse(serializedCarType);
+};
+
+exports.deleteCarTypeById = async (id) => {
+  const deletedCarType = await prisma.car_types.delete({
+    where: { id },
+  });
+
+  const serializedCarType = JSONBigInt.stringify(deletedCarType);
+  return JSONBigInt.parse(serializedCarType);
+};
