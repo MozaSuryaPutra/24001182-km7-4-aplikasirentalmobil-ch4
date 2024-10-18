@@ -1,68 +1,57 @@
-const carRepository = require("../repositories/cars.js");
+const carTypeRepository = require("../repositories/cars.js");
 const { NotFoundError, InternalServerError } = require("../utils/request.js");
-const { imageUpload } = require("../utils/image-kit.js");
 
-// exports.getCars = async (capacity) => {
-//   const cars = await carRepository.getCars(capacity);
-//   if (cars.length < 1) {
-//     throw new NotFoundError("Car Is Not Found");
-//   }
-//   return cars;
-// };
-
-// exports.getCarsById = async (id) => {
-//   const carsId = await carRepository.getCarsById(id);
-//   if (!carsId) {
-//     throw new NotFoundError("Cars is not found");
-//   }
-//   return carsId;
-// };
-
-exports.createCarType = async (data, file) => {
-  // Upload file to image kit
-  if (file?.image) {
-    data.image = await imageUpload(file.image);
+exports.getCarType = async (capacity) => {
+  const carType = await carTypeRepository.getCarType(capacity);
+  if (carType.length < 1) {
+    throw new NotFoundError("Car Is Not Found");
   }
-
-  // Create the data
-  return carRepository.createCarType(data);
+  return carType;
 };
 
-// exports.updateCars = async (id, data, file) => {
-//   // find Car is exist or not (validate the data)
-//   const existingCar = carRepository.getCarsById(id);
-//   if (!existingCar) {
-//     throw new NotFoundError("Car is Not Found!");
-//   }
+exports.getCarTypeById = async (id) => {
+  const carTypeId = await carTypeRepository.getCarTypeById(id);
+  if (!carTypeId) {
+    throw new NotFoundError("Cars is not found");
+  }
+  return carTypeId;
+};
 
-//   // replicated existing data with new data
-//   data = {
-//     ...existingCar, // existing Car
-//     ...data,
-//   };
+exports.createCarType = async (data, ) => {
+  // Create the data
+  return carTypeRepository.createCarType(data);
+};
 
-//   // Upload file to image kit
-//   if (file?.image) {
-//     data.image = await imageUpload(file.image);
-//   }
+exports.updateCarType = async (id, data, file) => {
+  // find Car is exist or not (validate the data)
+  const existingCarType = carTypeRepository.getCarTypeById(id);
+  if (!existingCarType) {
+    throw new NotFoundError("Car is Not Found!");
+  }
 
-//   // if exist, we will update the Car data
-//   const updatedCar = carRepository.updateCars(id, data);
-//   if (!updatedCar) {
-//     throw new InternalServerError(["Failed to update Car!"]);
-//   }
+  // replicated existing data with new data
+  data = {
+    ...existingCarType, // existing Car
+    ...data,
+  };
 
-//   return updatedCar;
-// };
+  // if exist, we will update the Car data
+  const updatedCar = carTypeRepository.updateCarType(id, data);
+  if (!updatedCar) {
+    throw new InternalServerError(["Failed to update Car!"]);
+  }
 
-// exports.deleteCarsById = async (id) => {
-//   const carsExist = await carRepository.getCarsById(id);
-//   if (!carsExist) {
-//     throw new NotFoundError("Cars is not found");
-//   }
-//   const deleteCars = await carRepository.deleteCarsById(id);
-//   if (!deleteCars) {
-//     throw new InternalServerError("Failed to delete Cars");
-//   }
-//   return deleteCars;
-// };
+  return updatedCar;
+};
+
+exports.deleteCarsById = async (id) => {
+  const existingCarType = await carTypeRepository.getCarTypeById(id);
+  if (!existingCarType) {
+    throw new NotFoundError("Cars is not found");
+  }
+  const deletedCars = await carTypeRepository.deleteCarsById(id);
+  if (!deletedCars) {
+    throw new InternalServerError("Failed to delete Cars");
+  }
+  return deletedCars;
+};
