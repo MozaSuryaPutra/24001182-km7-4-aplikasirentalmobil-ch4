@@ -1,6 +1,6 @@
-const carService = require("../services/cars");
+const carService = require("../services/carType");
 const { successResponse } = require("../utils/response");
-const CarsRepository = require("../repositories/cars");
+//const CarsRepository = require("../repositories/cars");
 
 // exports.getCars = async (req, res, next) => {
 //   const data = await carService.getCars(req.query?.capacity);
@@ -14,11 +14,7 @@ const CarsRepository = require("../repositories/cars");
 // };
 
 exports.createCarType = async (req, res, next) => {
-  const requestBody = {
-    ...req.body,
-  };
-
-  const data = await carService.createCarType(requestBody, req.files);
+  const data = await carService.createCarType(req.body, req.files);
   successResponse(res, data);
 };
 
