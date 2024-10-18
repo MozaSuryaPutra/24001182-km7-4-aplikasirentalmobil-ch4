@@ -63,4 +63,5 @@ exports.deleteCarsModel = async (id) => {
   // Convert BigInt fields to string for safe serialization
   const serializedCarsModel = JSONBigInt.stringify(deletedCarsModel);
   return JSONBigInt.parse(serializedCarsModel);
+
 };

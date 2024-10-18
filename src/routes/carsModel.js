@@ -1,4 +1,5 @@
 const express = require("express");
+
 const {
   validateGetCarsModel,
   validateGetCarsModelById,
@@ -27,4 +28,5 @@ router
   .get(validateGetCarsModelById, getCarsModelById)
   .put(validateUpdateCarsModel, updateCarsModel)
   .delete(validateDeleteCarsModel, deleteCarsModel);
+
 module.exports = router;
