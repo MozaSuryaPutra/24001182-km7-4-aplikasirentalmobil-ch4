@@ -107,6 +107,7 @@ exports.validateDeleteCarsModel = (req, res, next) => {
   });
 
   const result = validateParams.safeParse(req.params);
+
   if (!result.success) {
     // If validation fails, return error messages
     throw new BadRequestError(result.error.errors);
