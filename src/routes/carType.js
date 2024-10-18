@@ -2,13 +2,13 @@ const express = require("express");
 const {
   validateGetCars,
   validateGetCarsById,
-  validateCreateCars,
+  validateCreateCarType,
   validateUpdateCars,
   validateDeleteCars,
 } = require("../middlewares/cars.js");
 const {
   getCars,
-  createCars,
+  createCarType,
   updateCars,
   deleteCarsById,
 } = require("../controllers/cars.js");
@@ -18,7 +18,7 @@ const router = express.Router();
 
 router.get("/", validateGetCars, getCars);
 router.get("/:id", validateGetCarsById, getCarsById);
-router.post("/", validateCreateCars, createCars);
+router.post("/", validateCreateCarType, createCarType);
 router.put("/:id", validateUpdateCars, updateCars);
 router.delete("/:id", validateDeleteCars, deleteCarsById);
 module.exports = router;
