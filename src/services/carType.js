@@ -1,19 +1,23 @@
 const carTypeRepository = require("../repositories/carType.js");
 const { NotFoundError, InternalServerError } = require("../utils/request.js");
 
-exports.getCarType = async (capacity) => {
-  const carType = await carTypeRepository.getCarType(capacity);
+exports.getCarType = async (fuel_type) => {
+  const carType = await carTypeRepository.getCarType(fuel_type);
+
   if (carType.length < 1) {
     throw new NotFoundError("Car Is Not Found");
   }
+
   return carType;
 };
 
 exports.getCarTypeById = async (id) => {
   const carTypeId = await carTypeRepository.getCarTypeById(id);
+
   if (!carTypeId) {
     throw new NotFoundError("Cars is not found");
   }
+  
   return carTypeId;
 };
 
@@ -24,7 +28,8 @@ exports.createCarType = async (data, ) => {
 
 exports.updateCarType = async (id, data, file) => {
   // find Car is exist or not (validate the data)
-  const existingCarType = carTypeRepository.getCarTypeById(id);
+  const existingCarType = await carTypeRepository.getCarTypeById(id);
+
   if (!existingCarType) {
     throw new NotFoundError("Car is Not Found!");
   }
@@ -44,14 +49,16 @@ exports.updateCarType = async (id, data, file) => {
   return updatedCar;
 };
 
-exports.deleteCarsById = async (id) => {
+exports.deleteCarTypeById = async (id) => {
   const existingCarType = await carTypeRepository.getCarTypeById(id);
   if (!existingCarType) {
     throw new NotFoundError("Cars is not found");
   }
-  const deletedCars = await carTypeRepository.deleteCarsById(id);
+
+  const deletedCars = await carTypeRepository.deleteCarTypeById(id);
   if (!deletedCars) {
     throw new InternalServerError("Failed to delete Cars");
   }
+
   return deletedCars;
 };

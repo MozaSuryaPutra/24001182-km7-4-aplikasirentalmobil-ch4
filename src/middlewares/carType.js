@@ -2,14 +2,13 @@ const { z } = require("zod");
 const { BadRequestError } = require("../utils/request");
 
 exports.validateGetCarType = (req, res, next) => {
-  const carValidationSchema = z.object({
-    capacity: z
+  const validationSchema = z.object({
+    fuel_type: z
       .string()
-      .transform((val) => parseInt(val, 10))
       .optional().nullable(),
   });
 
-  const resultValidateQuery = carValidationSchema.safeParse(req.query);
+  const resultValidateQuery = validationSchema.safeParse(req.query);
 
   if (!resultValidateQuery.success) {
     throw new BadRequestError(resultValidateQuery.error.errors);
@@ -29,6 +28,7 @@ exports.validateGetCarTypeById = (req, res, next) => {
     // If validation fails, return error messages
     throw new BadRequestError(result.error.errors);
   }
+
   next();
 };
 
@@ -36,17 +36,9 @@ exports.validateCreateCarType = (req, res, next) => {
   console.log(req.body);
 
   const validateBody = z.object({
-    body_style: z
-      .string()
-      .trim(),
-    capacity: z
-      .string()
-      .trim()
-      .transform((val) => parseInt(val, 10)),
-      // .refine((val) => !isNaN(val) && val >= 1886, {
-      //   message: "capacity must be a valid number",
-      // }),
-    fuel_type: z.string().trim(),
+    body_style: z.string(),
+    capacity: z.string(),
+    fuel_type: z.string().optional().nullable(),
   });
 
 
@@ -56,6 +48,12 @@ exports.validateCreateCarType = (req, res, next) => {
     // If validation fails, return error messages
     throw new BadRequestError(result.error.errors);
   }
+
+  // Convert to car data format
+  req.body = {
+    ...req.body,
+    capacity: parseInt(req.body["capacity"]) || null,
+  };
 
   next();
 };
@@ -74,17 +72,9 @@ exports.validateUpdateCarType = (req, res, next) => {
   }
 
   const validateBody = z.object({
-    body_style: z
-    .string()
-    .trim().optional(),
-    capacity: z
-      .string()
-      .trim()
-      .transform((val) => parseInt(val, 10)).optional(),
-      // .refine((val) => !isNaN(val) && val >= 1886, {
-      //   message: "capacity must be a valid number",
-      // }),
-    fuel_type: z.string().trim().optional(),
+    body_style: z.string(),
+    capacity: z.string(),
+    fuel_type: z.string().optional().nullable(),
   });
 
   //Validasi
@@ -92,6 +82,13 @@ exports.validateUpdateCarType = (req, res, next) => {
   if (!resultValidateBody.success) {
     throw new BadRequestError(resultValidateBody.error.errors);
   }
+
+  // Convert to car data format
+  req.body = {
+    ...req.body,
+    capacity: parseInt(req.body["capacity"]) || null,
+  };
+  
   next();
 };
 
@@ -105,5 +102,6 @@ exports.validateDeleteCarType = (req, res, next) => {
     // If validation fails, return error messages
     throw new BadRequestError(result.error.errors);
   }
+  
   next();
 };
