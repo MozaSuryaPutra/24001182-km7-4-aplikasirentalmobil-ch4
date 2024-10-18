@@ -1,4 +1,4 @@
-const carRepository = require("../repositories/cars.js");
+const carRepository = require("../repositories/carType.js");
 const { NotFoundError, InternalServerError } = require("../utils/request.js");
 const { imageUpload } = require("../utils/image-kit.js");
 

@@ -49,18 +49,18 @@ const prisma = new PrismaClient();
 // };
 
 exports.createCarType = async (data) => {
-  const newCars = await prisma.car_types.create({
+  const { body_style, capacity, fuel_type } = data;
+
+  const newCarsType = await prisma.car_types.create({
     data: {
-      id, // Menghasilkan id unik
-      ...data, // Spread semua data dari request body ke sini
-      body_style: data.body_style, // Parsing rentPerDay jadi integer
-      capacity: parseInt(data.capacity), // Parsing capacity jadi integer
-      fuel_type: data.fuel_type, // Parsing availableAt jadi Date
+      body_style,
+      capacity: parseInt(capacity, 10), // Convert capacity to an integer
+      fuel_type,
     },
   });
 
   // Convert BigInt fields to string for safe serialization
-  const serializedCars = JSONBigInt.stringify(newCars);
+  const serializedCars = JSONBigInt.stringify(newCarsType);
   return JSONBigInt.parse(serializedCars);
 };
 
