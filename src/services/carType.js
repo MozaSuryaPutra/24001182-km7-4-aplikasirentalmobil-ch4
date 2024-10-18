@@ -1,4 +1,4 @@
-const carTypeRepository = require("../repositories/cars.js");
+const carTypeRepository = require("../repositories/carType.js");
 const { NotFoundError, InternalServerError } = require("../utils/request.js");
 
 exports.getCarType = async (capacity) => {

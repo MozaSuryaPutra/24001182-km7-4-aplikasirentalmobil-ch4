@@ -6,15 +6,13 @@ exports.validateGetCarType = (req, res, next) => {
     capacity: z
       .string()
       .transform((val) => parseInt(val, 10))
-      .refine((val) => !isNaN(val) && val > 0, {
-        message: "Capacity must be a positive number".optional().nullable(),
-      }),
+      .optional().nullable(),
   });
 
-  const parsed = carValidationSchema.safeParse(req.query);
+  const resultValidateQuery = carValidationSchema.safeParse(req.query);
 
-  if (!parsed.success) {
-    throw new BadRequestError(parsed.error.errors);
+  if (!resultValidateQuery.success) {
+    throw new BadRequestError(resultValidateQuery.error.errors);
   }
 
   next();
@@ -63,16 +61,16 @@ exports.validateCreateCarType = (req, res, next) => {
 };
 
 exports.validateUpdateCarType = (req, res, next) => {
-  const validateSchema = z.object({
+  const validateParams = z.object({
     id: z.string(),
   });
 
-  validateSchema.safeParse(req.params);
-  const result = validateSchema.safeParse(req.params);
+  validateParams.safeParse(req.params);
+  const resultValidateParams = validateParams.safeParse(req.params);
 
-  if (!result.success) {
+  if (!resultValidateParams.success) {
     // If validation fails, return error messages
-    throw new BadRequestError(result.error.errors);
+    throw new BadRequestError(resultValidateParams.error.errors);
   }
 
   const validateBody = z.object({
@@ -90,9 +88,9 @@ exports.validateUpdateCarType = (req, res, next) => {
   });
 
   //Validasi
-  const result2 = validateBody.safeParse(req.body);
-  if (!result2.success) {
-    throw new BadRequestError(result2.error.errors);
+  const resultValidateBody = validateBody.safeParse(req.body);
+  if (!resultValidateBody.success) {
+    throw new BadRequestError(resultValidateBody.error.errors);
   }
   next();
 };

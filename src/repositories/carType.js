@@ -8,9 +8,11 @@ exports.getCarType = async (capacity) => {
   const numericCapacity = Number(capacity);
 
   // It will generate the query
-  const query = {};
+  let query = {};
   if (capacity) {
-    query.capacity = { contains: capacity, mode: "insensitive" };
+      query.push({
+          nick_name: { contains: capacity, mode: "insensitive" },
+      });
   }
 
   // Find by query

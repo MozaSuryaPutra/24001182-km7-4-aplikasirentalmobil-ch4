@@ -22,14 +22,7 @@ exports.createCarType = async (req, res, next) => {
 
 exports.updateCarType = async (req, res, next) => {
   const { id } = req.params;
-  const carType = carTypeRepository.getCarTypeById(id);
-  const requestBody = {
-    ...req.body,
-    body_style: req.body.year || carType.year,
-    capacity: parseInt(req.body.capacity, 10) || carType.capacity,
-    fuel_type: req.body.year || carType.year,
-  };
-  const updatedCarType = await carTypeService.updateCarType(id, requestBody, req.files);
+  const updatedCarType = await carTypeService.updateCarType(id, req.body);
   successResponse(res, updatedCarType, "Update Student is Success");
 };
 
