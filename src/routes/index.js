@@ -5,7 +5,7 @@ const carsModelRouter = require("./carsModel");
 
 const router = express.Router();
 
-router.use("/cars", carsRouter);
+router.use("/models", carsModelRouter); // /models -> carsModelRouter
 router.use("/car-type", carTypeRouter);
 router.use("/models", carsModelRouter);
 

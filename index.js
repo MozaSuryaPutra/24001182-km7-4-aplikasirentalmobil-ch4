@@ -4,7 +4,6 @@ const app = express();
 const port = process.env.PORT || 3000;
 require("express-async-errors");
 const router = require("./src/routes/index.js");
-const carsModelRouter = require("./routes/carsModel");
 const {
   errorHandler,
   notFoundURLHandler,
@@ -25,7 +24,6 @@ app.use(
 );
 
 app.use("/", router);
-app.use("/models", carsModelRouter);
 app.use("*", notFoundURLHandler);
 
 // This function is to handle error when API hit, it always be the last middleware
