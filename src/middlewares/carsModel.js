@@ -100,6 +100,7 @@ exports.validateUpdateCarsModel = (req, res, next) => {
   next();
 };
 
+
 exports.validateDeleteCarsModel = (req, res, next) => {
   // Make a validation schema
   const validateParams = z.object({
