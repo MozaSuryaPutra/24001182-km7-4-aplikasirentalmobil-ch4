@@ -1,9 +1,30 @@
 const express = require("express");
-const { validateCreateCarsModel } = require("../middlewares/carsModel.js");
-const { createCarsModel } = require("../controllers/carsModel.js");
+const {
+  validateGetCarsModel,
+  validateGetCarsModelById,
+  validateCreateCarsModel,
+  validateUpdateCarsModel,
+  validateDeleteCarsModel,
+} = require("../middlewares/carsModel");
+const {
+  getCarsModel,
+  getCarsModelById,
+  createCarsModel,
+  updateCarsModel,
+  deleteCarsModel,
+} = require("../controllers/carsModel");
 
 const router = express.Router();
 
-router.post("/carsModel", validateCreateCarsModel, createCarsModel);
+// Route is now just `/` because `/models` is handled by the parent route in index.js
+router
+  .route("/")
+  .get(validateGetCarsModel, getCarsModel)
+  .post(validateCreateCarsModel, createCarsModel);
 
+router
+  .route("/:id")
+  .get(validateGetCarsModelById, getCarsModelById)
+  .put(validateUpdateCarsModel, updateCarsModel)
+  .delete(validateDeleteCarsModel, deleteCarsModel);
 module.exports = router;
