@@ -45,8 +45,6 @@ exports.createCarType = async (data) => {
       // body_style: data.body_style, 
       // capacity: parseInt(data.capacity),
       // fuel_type: data.fuel_type,
-    },
-  });
 
   // Convert BigInt fields to string for safe serialization
   const serializedCarType = JSONBigInt.stringify(newCarType);

@@ -58,7 +58,7 @@ exports.validateCreateCars = (req, res, next) => {
       .trim()
       .transform((val) => parseInt(val, 10))
       .refine((val) => !isNaN(val) && val > 0, {
-        message: "Rent per day must be a positive integer",
+        message: "Cars Model must be a positive integer",
       }),
     rentPerDay: z
       .string()

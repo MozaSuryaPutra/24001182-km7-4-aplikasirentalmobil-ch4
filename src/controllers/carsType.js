@@ -2,6 +2,7 @@ const carTypeService = require("../services/carType");
 const { successResponse } = require("../utils/response");
 const carTypeRepository = require("../repositories/carType");
 
+
 exports.getCarType = async (req, res, next) => {
   const data = await carTypeService.getCarType(
     req.query?.capacity,

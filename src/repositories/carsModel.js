@@ -1,44 +1,66 @@
-const { z } = require("zod");
-const { BadRequestError } = require("../utils/request");
+const { PrismaClient } = require("@prisma/client");
+const JSONBigInt = require("json-bigint");
 
-exports.validateCreateCarsModel = (req, res, next) => {
-  console.log(req.body);
+const prisma = new PrismaClient();
 
-  // Function to split the CSV string into an object
-  const splitStringToObject = (str) => {
-    return str.split(",").reduce((acc, item) => {
-      const [key, value] = item.split(":").map((s) => s.trim());
-      acc[key] = value;
-      return acc;
-    }, {});
-  };
-
-  // Validate the incoming request body
-  const validateBody = z.object({
-    model_name: z.string().min(1, "Model name is required"),
-    manufacturer: z.string().min(1, "Manufacturer name is required"),
-    transmissions: z.string().min(1, "Transmissions name is required"),
-    description: z.string().trim(),
-    type_id: z.string().min(1, "Type id name is required"),
-    specs: z.object({}).optional(), // Expecting an object but allowing optional
-    options: z.object({}).optional(), // Expecting an object but allowing optional
-  });
-
-  // Parse and reconstruct specs and options from the incoming request
-  const parsedSpecs = splitStringToObject(req.body.specs || "");
-  const parsedOptions = splitStringToObject(req.body.options || "");
-
-  // Validate
-  const result = validateBody.safeParse({
-    ...req.body,
-    specs: parsedSpecs,
-    options: parsedOptions,
-  });
-
-  if (!result.success) {
-    // If validation fails, return error messages
-    throw new BadRequestError(result.error.errors);
+exports.getCarsModel = async (manufacturer) => {
+  // Construct the where clause
+  const query = {};
+  if (manufacturer) {
+    query.manufacturer = { contains: manufacturer, mode: "insensitive" };
   }
 
-  next();
+  // Find by query
+  const searchedCarsModel = await prisma.carsModels.findMany({
+    where: query,
+  });
+
+  // Convert BigInt fields to string for safe serialization
+  const serializedCarsModel = JSONBigInt.stringify(searchedCarsModel);
+  return JSONBigInt.parse(serializedCarsModel);
+};
+
+exports.getCarsModelById = async (id) => {
+  const carsModel = await prisma.carsModels.findFirst({
+    where: {
+      id: id,
+    },
+  });
+
+  // Convert BigInt fields to string for safe serialization
+  const serializedCarsModel = JSONBigInt.stringify(carsModel);
+  return JSONBigInt.parse(serializedCarsModel);
+};
+
+exports.createCarsModel = async (data) => {
+  const newCarsModel = await prisma.carsModels.create({
+    data: {
+      ...data,
+    },
+  });
+
+  // Convert BigInt fields to string for safe serialization
+  const serializedCarsModel = JSONBigInt.stringify(newCarsModel);
+  return JSONBigInt.parse(serializedCarsModel);
+};
+
+exports.updateCarsModel = async (id, data) => {
+  const updatedCarsModel = await prisma.carsModels.update({
+    where: { id },
+    data,
+  });
+
+  // Convert BigInt fields to string for safe serialization
+  const serializedCarsModel = JSONBigInt.stringify(updatedCarsModel);
+  return JSONBigInt.parse(serializedCarsModel);
+};
+
+exports.deleteCarsModel = async (id) => {
+  const deletedCarsModel = await prisma.carsModels.delete({
+    where: { id },
+  });
+
+  // Convert BigInt fields to string for safe serialization
+  const serializedCarsModel = JSONBigInt.stringify(deletedCarsModel);
+  return JSONBigInt.parse(serializedCarsModel);
 };
