@@ -10,17 +10,25 @@ exports.getCars = async (capacity) => {
 
   const searchedCars = await prisma.cars.findMany({
     where: {
-      OR: [{ capacity: { gte: numericCapacity } }],
+      carsModels: {
+        // Melakukan filtering berdasarkan capacity yang ada di car_types
+        car_types: {
+          capacity: {
+            gte: numericCapacity,
+          },
+        },
+      },
     },
     include: {
-      carModels: {
+      carsModels: {
         include: {
-          model_type: true,
+          car_types: true, // Include car_types untuk mendapatkan data capacity
         },
       },
     },
   });
 
+  // Convert BigInt fields to string for safe serialization
   const serializedCars = JSONBigInt.stringify(searchedCars);
   return JSONBigInt.parse(serializedCars);
 };
@@ -31,9 +39,9 @@ exports.getCarsById = async (id) => {
       id: id,
     },
     include: {
-      carModels: {
+      carsModels: {
         include: {
-          model_type: true,
+          car_types: true,
         },
       },
     },
@@ -53,7 +61,7 @@ exports.createCars = async (data) => {
       availableAt: new Date(data.availableAt), // Parsing availableAt jadi Date
       available: data.available === "true", // Parsing available jadi boolean
       year: parseInt(data.year), // Parsing year jadi integer
-      carsmodels_id: parseInt(data.carmodels_id), // Parsing carmodels_id jadi integer
+      carsmodels_id: parseInt(data.carsmodels_id), // Parsing carmodels_id jadi integer
     },
   });
 
@@ -68,9 +76,9 @@ exports.updateCars = async (id, data) => {
       id: id,
     },
     include: {
-      carModels: {
+      carsModels: {
         include: {
-          model_type: true,
+          car_types: true,
         },
       },
     },
