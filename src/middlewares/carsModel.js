@@ -100,6 +100,7 @@ exports.validateUpdateCarsModel = (req, res, next) => {
   next();
 };
 
+
 exports.validateDeleteCarsModel = (req, res, next) => {
   // Make a validation schema
   const validateParams = z.object({
@@ -107,6 +108,7 @@ exports.validateDeleteCarsModel = (req, res, next) => {
   });
 
   const result = validateParams.safeParse(req.params);
+
   if (!result.success) {
     // If validation fails, return error messages
     throw new BadRequestError(result.error.errors);
