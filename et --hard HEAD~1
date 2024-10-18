@@ -1,0 +1,32 @@
+[33maca76fa[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature_create_models[m[33m, [m[1;31morigin/feature_create_models[m[33m)[m Merge branch 'master' into feature_create_models
+[33mfa76445[m Merge branch 'feature_create_models' of https://github.com/MozaSuryaPutra/kelompok4Template into feature_create_models
+[33mc7c185d[m feature_create_models
+[33mdbd0cfb[m Feature create models (#12)
+[33m37ddce4[m Merge branch 'master' into feature_create_models
+[33ma48b6f6[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Cars+Models (#11)
+[33mdac5c6b[m Change prisma
+[33m97ccc35[m Merge branch 'master' of https://github.com/MozaSuryaPutra/kelompok4Template
+[33mf5f96e5[m cars services
+[33ma5addfa[m Merge with master (#5) (#9)
+[33m56f160e[m Feature create models (#8)
+[33mc75b6e7[m[33m ([m[1;32mmaster[m[33m)[m resolved conflict for feature_create_models
+[33m257559a[m feature create models
+[33m315b6b8[m Merge pull request #7 car_types
+[33mac48e62[m[33m ([m[1;31morigin/car_types[m[33m)[m Merge branch 'master' into car_types
+[33m1bc4411[m car_types
+[33mae9f9c6[m feature create model (#4)
+[33m44a7bcc[m feature create model
+[33m7d4e8a6[m Merge pull request #3 from MozaSuryaPutra/feature_create_models
+[33m736698f[m Merge pull request #2 from MozaSuryaPutra/feature_create_models
+[33m2b44f4a[m Merge branch 'master' of https://github.com/MozaSuryaPutra/kelompok4Template
+[33me5d7def[m car_type table
+[33m2b41528[m fix prisma again
+[33ma06d937[m Merge pull request #1 from MozaSuryaPutra/Cars
+[33m69a8f89[m ADD Cars
+[33ma7c595c[m commit prisma
+[33m973384f[m feature: create model
+[33m10f6a65[m fix dasar kode
+[33m095c195[m benerin prisma
+[33mc716784[m fix prisma
+[33m85e3edc[m push cars dll
+[33m1f1090d[m First Commit
