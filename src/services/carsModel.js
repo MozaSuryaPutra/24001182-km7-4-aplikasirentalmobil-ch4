@@ -24,27 +24,27 @@ exports.updateCarsModel = async (id, data) => {
   }
 
   data = {
-    ...existingCarsModel, // existing Student
+    ...existingCarsModel, // existing car
     ...data,
   };
 
-  // if exist, we will update the student data
+  // if exist, we will update the car data
   const updatedCarsModel = await carsModelRepository.updateCarsModel(id, data);
   if (!updatedCarsModel) {
-    throw new InternalServerError(["Failed to update student!"]);
+    throw new InternalServerError(["Failed to update car model!"]);
   }
 
   return updatedCarsModel;
 };
 
 exports.deleteCarsModel = async (id) => {
-  // find student is exist or not (validate the data)
+  // find car is exist or not (validate the data)
   const existingCarsModel = await carsModelRepository.getCarsModelById(id);
   if (!existingCarsModel) {
     throw new NotFoundError("Car Model is Not Found!");
   }
 
-  // if exist, we will delete the student data
+  // if exist, we will delete the car data
   const deletedCarsModel = await carsModelRepository.deleteCarsModel(id);
   if (!deletedCarsModel) {
     throw new InternalServerError(["Failed to delete Car Model!"]);
