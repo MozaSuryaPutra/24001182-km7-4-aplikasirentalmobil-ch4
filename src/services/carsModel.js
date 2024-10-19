@@ -17,13 +17,6 @@ exports.createCarsModel = async (data) => {
   return carsModelRepository.createCarsModel(data);
 };
 
-exports.updateStudent = async (req, res, next) => {
-  // Get the id from params
-  const { id } = req.params;
-  const data = await studentService.updateStudent(id, req.body, req.files);
-  successResponse(res, data);
-};
-
 exports.updateCarsModel = async (id, data) => {
   const existingCarsModel = await carsModelRepository.getCarsModelById(id);
   if (!existingCarsModel) {
