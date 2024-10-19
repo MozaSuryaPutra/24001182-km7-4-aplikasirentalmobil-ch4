@@ -3,9 +3,7 @@ const { BadRequestError } = require("../utils/request");
 
 exports.validateGetCarType = (req, res, next) => {
   const validationSchema = z.object({
-    fuel_type: z
-      .string()
-      .optional().nullable(),
+    fuel_type: z.string().optional().nullable(),
   });
 
   const resultValidateQuery = validationSchema.safeParse(req.query);
@@ -40,7 +38,6 @@ exports.validateCreateCarType = (req, res, next) => {
     capacity: z.string(),
     fuel_type: z.string().optional().nullable(),
   });
-
 
   // Validate
   const result = validateBody.safeParse(req.body);
@@ -88,7 +85,7 @@ exports.validateUpdateCarType = (req, res, next) => {
     ...req.body,
     capacity: parseInt(req.body["capacity"]) || null,
   };
-  
+
   next();
 };
 
@@ -102,6 +99,6 @@ exports.validateDeleteCarType = (req, res, next) => {
     // If validation fails, return error messages
     throw new BadRequestError(result.error.errors);
   }
-  
+
   next();
 };
