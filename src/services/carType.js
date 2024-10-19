@@ -17,11 +17,11 @@ exports.getCarTypeById = async (id) => {
   if (!carTypeId) {
     throw new NotFoundError("Cars is not found");
   }
-
+  
   return carTypeId;
 };
 
-exports.createCarType = async (data) => {
+exports.createCarType = async (data, ) => {
   // Create the data
   return carTypeRepository.createCarType(data);
 };
