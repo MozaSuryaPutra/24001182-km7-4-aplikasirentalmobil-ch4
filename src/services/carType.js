@@ -5,7 +5,7 @@ exports.getCarType = async (fuel_type) => {
   const carType = await carTypeRepository.getCarType(fuel_type);
 
   if (carType.length < 1) {
-    throw new NotFoundError("Car Is Not Found");
+    throw new NotFoundError("Car type Is Not Found");
   }
 
   return carType;
@@ -15,7 +15,7 @@ exports.getCarTypeById = async (id) => {
   const carTypeId = await carTypeRepository.getCarTypeById(id);
 
   if (!carTypeId) {
-    throw new NotFoundError("Cars is not found");
+    throw new NotFoundError("Cars type is not found");
   }
 
   return carTypeId;
@@ -43,7 +43,7 @@ exports.updateCarType = async (id, data, file) => {
   // if exist, we will update the Car data
   const updatedCar = carTypeRepository.updateCarType(id, data);
   if (!updatedCar) {
-    throw new InternalServerError(["Failed to update Car!"]);
+    throw new InternalServerError(["Failed to update Cars type!"]);
   }
 
   return updatedCar;
@@ -57,7 +57,7 @@ exports.deleteCarTypeById = async (id) => {
 
   const deletedCars = await carTypeRepository.deleteCarTypeById(id);
   if (!deletedCars) {
-    throw new InternalServerError("Failed to delete Cars");
+    throw new InternalServerError("Failed to delete Cars type");
   }
 
   return deletedCars;
