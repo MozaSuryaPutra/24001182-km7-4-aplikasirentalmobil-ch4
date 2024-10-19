@@ -24,7 +24,7 @@ model cars {
   available     Boolean
   year          Int
   carsmodels_id BigInt
-  carsModels    carsModels @relation(fields: [carsmodels_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "cars_carsmodel_id_fkey")
+  carsModels    carsModels @relation(fields: [carsmodels_id], references: [id], onDelete: Cascade, map: "cars_carsmodel_id_fkey")
 }
 
 model carsModels {
@@ -37,5 +37,5 @@ model carsModels {
   specs        Json
   options      Json
   cars         cars[]
-  car_types    car_types @relation(fields: [type_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  car_types    car_types @relation(fields: [type_id], references: [id], onDelete: Cascade)
 }
