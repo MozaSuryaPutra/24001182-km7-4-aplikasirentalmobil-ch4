@@ -1,5 +1,5 @@
 const carsModelRepository = require("../repositories/carsModel.js");
-
+const { NotFoundError, InternalServerError } = require("../utils/request.js");
 exports.getCarsModel = async (manufacturer) => {
   return carsModelRepository.getCarsModel(manufacturer);
 };
